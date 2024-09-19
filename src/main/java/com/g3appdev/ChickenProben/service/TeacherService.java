@@ -35,7 +35,7 @@ public class TeacherService {
         return teacherRepo.findById(id);
     }
 
-    // Update
+    // Update by ID
     @SuppressWarnings("finally")
     public TeacherEntity updateTeacher(int id, TeacherEntity updatedTeacher) {
         TeacherEntity teacherEntity = new TeacherEntity();
@@ -53,11 +53,11 @@ public class TeacherService {
         }
     }
 
-    // Delete teacher by ID
+    // Delete by ID
     public String deleteTeacher(int id) {
-        String msg = "";
+        String msg = " ";
         if (teacherRepo.findById(id)!=null){
-            teacherRepo.deleteById(null);
+            teacherRepo.deleteById(id);
             msg = "Teacher record successfully deleted!";
         }else
             msg = id + "NOT FOUND!";

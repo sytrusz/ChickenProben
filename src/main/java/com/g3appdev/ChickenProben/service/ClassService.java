@@ -19,7 +19,7 @@ public class ClassService {
         super();
     }
 
-    // Create
+    
     public ClassEntity saveClass(ClassEntity classEntity) {
         return classRepo.save(classEntity);
     }
