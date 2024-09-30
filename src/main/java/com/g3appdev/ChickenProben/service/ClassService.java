@@ -56,9 +56,9 @@ public class ClassService {
 
     // Delete class by ID
     public String deleteClass(int id) {
-        String msg = "";
+        String msg = " ";
         if (classRepo.findById(id)!=null){
-            classRepo.deleteById(null);
+            classRepo.deleteById(id);
             msg = "Class record successfully deleted!";
         }else
             msg = id + "NOT FOUND!";

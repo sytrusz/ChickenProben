@@ -42,7 +42,7 @@ public class ClassController {
     }
 
     // Delete by ID
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{classId}")
     public String deleteClass(@PathVariable int classId){
         return classService.deleteClass(classId);
     }

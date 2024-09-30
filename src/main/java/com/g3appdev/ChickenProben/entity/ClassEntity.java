@@ -4,9 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Class")
@@ -17,29 +22,31 @@ public class ClassEntity {
     @Column(name = "ClassID")
     private int classId;
 
-    @Column(name = "ClassName")
+    @Column(name = "ClassName", nullable = false)
     private String className;
 
-    @Column(name = "StartTime")
+    @Column(name = "StartTime", nullable = false)
     private LocalTime startTime;
 
-    @Column(name = "EndTime")
+    @Column(name = "EndTime", nullable = false)
     private LocalTime endTime;
 
-    @Column(name = "TeacherID")
-    private int teacherId;
-    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacherid")
+    @JsonIgnore
+    private TeacherEntity teacher;
+
     public ClassEntity() {
         super();
     }
 
-    public ClassEntity(int classId, String className, LocalTime startTime, LocalTime endTime, int teacherId) {
+    public ClassEntity(int classId, String className, LocalTime startTime, LocalTime endTime, TeacherEntity teacher) {
         super();
         this.classId = classId;
         this.className = className;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.teacherId = teacherId;
+        this.teacher = teacher;
     }
 
     public int getClassId() {
@@ -73,12 +80,12 @@ public class ClassEntity {
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
-    
-    public int getTeacherId() {
-        return teacherId;
+
+    public TeacherEntity getTeacher() {
+        return teacher;
     }
-    
-    public void setTeacher(int teacherId) {
-        this.teacherId = teacherId;
+
+    public void setTeacher(TeacherEntity teacher) {
+        this.teacher = teacher;
     }
 }

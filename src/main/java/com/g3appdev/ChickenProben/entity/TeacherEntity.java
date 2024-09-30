@@ -1,11 +1,15 @@
 package com.g3appdev.ChickenProben.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import java.util.List;
 
 @Entity
 @Table(name = "Teacher")
@@ -13,18 +17,20 @@ public class TeacherEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     @Column(name = "TeacherID")
     private int teacherId;
-    
-    @Column(name = "Name")
+
+    @Column(name = "Name", nullable = false)
     private String name;
-    
-    @Column(name = "Email")
+
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
-    
-    @Column(name = "Password")
+
+    @Column(name = "Password", nullable = false)
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<ClassEntity> classEnrolled;
 
     public TeacherEntity() {
         super();
@@ -68,5 +74,13 @@ public class TeacherEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<ClassEntity> getClassEnrolled() {
+        return classEnrolled;
+    }
+
+    public void setClassEnrolled(List<ClassEntity> classEnrolled) {
+        this.classEnrolled = classEnrolled;
     }
 }
